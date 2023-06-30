@@ -26,12 +26,12 @@ export const runTest = async () => {
   }
 
   const qrUrl = 'https://h.country';
-  const prompt = '/qr h.country light, futobot, cyborg, ((masterpiece),(best quality),(ultra-detailed), (full body:1.2), 1male, solo, hood up, upper body, mask, 1boy, male focus,white gloves, cloak, long sleeves, spaceship, lightning, hires';
+  const prompt = 'light, futobot, cyborg, (masterpiece),(best quality),(ultra-detailed), (full body:1.2), 1male, solo, hood up, upper body, mask, 1boy, male focus,white gloves, cloak, long sleeves, spaceship, lightning, hires';
   const qrMargin = 1;
-  const imgCount = 10;
+  const imgCount = 1;
   // const guidanceStart = 20 // 0 - 100;
   const guidanceEnd = 85; // 0 - 100;
-  const steps = 60;
+  const steps = 40;
   const width = 510;
   const height = 510;
 
@@ -39,7 +39,7 @@ export const runTest = async () => {
 
   console.log('### start');
 
-  for (let _guidanceStart = 18; _guidanceStart < 100; _guidanceStart += 1) {
+  for (let _guidanceStart = 1; _guidanceStart < 20 ; _guidanceStart += 3) {
     for (let i = 0; i < imgCount; i++) {
 
       const timeStart = Date.now();

@@ -1,17 +1,30 @@
 
-export const getTxt2ImgConfig = ({imgBase64, prompt}: {prompt: string, imgBase64: string}) => {
+export const getTxt2ImgConfig = (conf: SDConfig) => {
+
+  const {
+    imgBase64,
+    prompt,
+    steps = 60,
+    guidanceStart = 0.2,
+    guidanceEnd = 0.8,
+    width = 500,
+    height = 500,
+  } = conf;
+
+  console.log('### conf', conf);
+
   return {
     "prompt": prompt,
-    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), normal quality, lowres, ugly, disfigured, low quality, blurry, fewer fingers, bad hand, strange hand, (worst quality, low quality:1.4), monochrome, zombie, (interlocked fingers)",
+    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
     "seed": -1,
     "subseed": -1,
     "subseed_strength": 0,
     "sampler_name": "DPM++ 2M Karras",
     "batch_size": 1,
     "n_iter": 1,
-    "steps": 60,
-    width: '600',
-    height: '600',
+    "steps": steps,
+    width: width,
+    height: height,
     "cfg_scale": 7,
     "seed_resize_from_h": -1,
     "seed_resize_from_w": -1,
@@ -28,8 +41,8 @@ export const getTxt2ImgConfig = ({imgBase64, prompt}: {prompt: string, imgBase64
             // "mask": "pixel_perfect",
             "resize_mode": 0,
             "control_mode": 0,
-            "guidance_start": 0.08,
-            "guidance_end": 0.75,
+            "guidance_start": guidanceStart,
+            "guidance_end": guidanceEnd,
             "pixel_perfect": true,
           }
         ]
@@ -38,7 +51,7 @@ export const getTxt2ImgConfig = ({imgBase64, prompt}: {prompt: string, imgBase64
   }
 }
 
-export interface Img2ImgConfig {
+export interface SDConfig {
   prompt: string,
   imgBase64: string,
   guidanceStart?: number,
@@ -48,7 +61,7 @@ export interface Img2ImgConfig {
   height?: number,
 }
 
-export const getImg2ImgConfig = (conf: Img2ImgConfig) => {
+export const getImg2ImgConfig = (conf: SDConfig) => {
   const {
     imgBase64,
     prompt,
@@ -59,10 +72,12 @@ export const getImg2ImgConfig = (conf: Img2ImgConfig) => {
     height = 500,
   } = conf;
 
+  console.log('### conf', conf);
+
   return {
     "init_images": [imgBase64],
     "prompt": prompt,
-    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4) worst quality, low quality, normal quality, lowres, ugly, disfigured, low quality, blurry, fewer fingers, bad hand, strange hand, (worst quality, low quality:1.4), monochrome, zombie, (interlocked fingers)",
+    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
     "seed": -1,
     "subseed": -1,
     "subseed_strength": 0,
