@@ -1,28 +1,36 @@
+export interface SDConfig {
+  prompt: string,
+  imgBase64: string,
+  guidanceStart?: number,
+  guidanceEnd?: number,
+  steps?: number,
+  width?: number,
+  height?: number,
+}
+
 
 export const getTxt2ImgConfig = (conf: SDConfig) => {
-
   const {
     imgBase64,
     prompt,
-    steps = 60,
-    guidanceStart = 0.2,
-    guidanceEnd = 0.8,
-    width = 500,
-    height = 500,
+    steps = 40,
+    guidanceStart = 0.02,
+    guidanceEnd = 0.9,
+    width = 600,
+    height = 600,
   } = conf;
-
-  console.log('### conf', conf);
 
   return {
     "prompt": prompt,
-    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
+    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), (blurry:2), overexposure, watermark, text, easynegative, ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
     "seed": -1,
     "subseed": -1,
     "subseed_strength": 0,
     "sampler_name": "DPM++ 2M Karras",
+    "batch_count": 1,
     "batch_size": 1,
     "n_iter": 1,
-    "steps": steps,
+    steps: steps,
     width: width,
     height: height,
     "cfg_scale": 7,
@@ -51,40 +59,28 @@ export const getTxt2ImgConfig = (conf: SDConfig) => {
   }
 }
 
-export interface SDConfig {
-  prompt: string,
-  imgBase64: string,
-  guidanceStart?: number,
-  guidanceEnd?: number,
-  steps?: number,
-  width?: number,
-  height?: number,
-}
-
 export const getImg2ImgConfig = (conf: SDConfig) => {
   const {
     imgBase64,
     prompt,
     steps = 60,
-    guidanceStart = 0.2,
-    guidanceEnd = 0.8,
+    guidanceStart = 0.17,
+    guidanceEnd = 0.7,
     width = 500,
     height = 500,
   } = conf;
 
-  console.log('### conf', conf);
-
   return {
     "init_images": [imgBase64],
     "prompt": prompt,
-    "negative_prompt": "(KHFB, AuroraNegative),(Worst Quality, Low Quality:1.4), ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy",
+    "negative_prompt": "(KHFB, AuroraNegative),(worst Quality, low Quality:1.4), ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy, ng_deepnegative_v1_75t",
     "seed": -1,
     "subseed": -1,
     "subseed_strength": 0,
     "sampler_name": "DPM++ 2M Karras",
     "batch_size": 1,
     "n_iter": 1,
-    "steps": steps,
+    steps: steps,
     width: width,
     height: height,
     "cfg_scale": 7,

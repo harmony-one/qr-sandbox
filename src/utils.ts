@@ -61,6 +61,10 @@ export const scanQRCode = (imgBuffer: Buffer) => {
 }
 
 export const isQRCodeReadable = (imgBuffer: Buffer) => {
-  const info = scanQRCode(imgBuffer);
-  return !!info;
+  try {
+    const info = scanQRCode(imgBuffer);
+    return !!info;
+  } catch (err) {
+    return false
+  }
 }
